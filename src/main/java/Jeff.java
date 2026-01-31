@@ -29,7 +29,11 @@ public class Jeff {
         String response = in.nextLine();
         while (!response.equals("bye")) {
             String[] words = response.split(" ");
-            if (words.length > 1 && isDigit(words[1])) {
+            if (words[0].equals("todo")) {
+                tasks[count] = new ToDos(response, false);
+                count++;
+            }
+            else if (words.length > 1 && isDigit(words[1])) {
                 int idx = Integer.parseInt(words[1]);
                 String command = words[0];
                 if (idx > count) {
@@ -46,9 +50,6 @@ public class Jeff {
             } else {
                 tasks[count] = new Task(response, false);
                 count++;
-                System.out.println("\t____________________________________________________________");
-                System.out.println("\t added: " + response);
-                System.out.println("\t____________________________________________________________");
             }
             response = in.nextLine();
         }

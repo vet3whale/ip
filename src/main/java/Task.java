@@ -2,10 +2,14 @@ public class Task {
 	protected String description;
 	protected boolean isDone = false;
 
+	public static int totalTasks = 0;
+
 	// Constructors
 	public Task(String taskDescription, boolean done) {
 		description = taskDescription;
 		isDone = done;
+		totalTasks++;
+		printAdded(taskDescription);
 	}
 
 	// Getters
@@ -34,6 +38,16 @@ public class Task {
 		System.out.println("\t fat fingers fella. command does not exist. try again...");
 		System.out.println("\t____________________________________________________________");
 	}
+	public void printAdded(String taskDescription) {
+		System.out.println("\t____________________________________________________________");
+		System.out.println("\t added: " + taskDescription);
+		System.out.println("\t____________________________________________________________");
+	}
+
+	public static int getTotalTasks() {
+		return totalTasks;
+	}
+
 	// Setters
 	public void setCompletionStatus(String command) {
 		command = command.toLowerCase();
