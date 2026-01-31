@@ -30,7 +30,15 @@ public class Jeff {
         while (!response.equals("bye")) {
             String[] words = response.split(" ");
             if (words[0].equals("todo")) {
-                tasks[count] = new ToDos(response, false);
+                tasks[count] = new ToDos(response);
+                tasks[count].printAdded();
+                count++;
+            } else if (words[0].equals("deadline")) {
+                if (!response.contains("/by")) {
+                    response += " /by tbd";
+                }
+                tasks[count] = new Deadlines(response);
+                tasks[count].printAdded();
                 count++;
             }
             else if (words.length > 1 && isDigit(words[1])) {
@@ -48,7 +56,8 @@ public class Jeff {
             else if (response.equals("list")) {
                 printList(tasks, count);
             } else {
-                tasks[count] = new Task(response, false);
+                tasks[count] = new Task(response);
+                tasks[count].printAdded();
                 count++;
             }
             response = in.nextLine();

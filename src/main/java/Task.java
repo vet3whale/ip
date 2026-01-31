@@ -5,11 +5,10 @@ public class Task {
 	public static int totalTasks = 0;
 
 	// Constructors
-	public Task(String taskDescription, boolean done) {
+	public Task(String taskDescription) {
 		description = taskDescription;
-		isDone = done;
+		isDone = false;
 		totalTasks++;
-		printAdded(taskDescription);
 	}
 
 	// Getters
@@ -19,29 +18,6 @@ public class Task {
 
 	public String getDescription() {
 		return description;
-	}
-
-	public void printTaskMarked() {
-		System.out.println("\t____________________________________________________________");
-		System.out.println("\t niceee, i have marked this task done:");
-		System.out.println("\t  [" + this.getStatusIcon() + "] " + this.getDescription());
-		System.out.println("\t____________________________________________________________");
-	}
-	public void printTaskUnmarked() {
-		System.out.println("\t____________________________________________________________");
-		System.out.println("\t ok, i have marked this task as not done yet:");
-		System.out.println("\t  [" + this.getStatusIcon() + "] " + this.getDescription());
-		System.out.println("\t____________________________________________________________");
-	}
-	public void printWrongCommand() {
-		System.out.println("\t____________________________________________________________");
-		System.out.println("\t fat fingers fella. command does not exist. try again...");
-		System.out.println("\t____________________________________________________________");
-	}
-	public void printAdded(String taskDescription) {
-		System.out.println("\t____________________________________________________________");
-		System.out.println("\t added: " + taskDescription);
-		System.out.println("\t____________________________________________________________");
 	}
 
 	public static int getTotalTasks() {
@@ -67,4 +43,29 @@ public class Task {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	// Printing Methods
+	public void printTaskMarked() {
+		System.out.println("\t____________________________________________________________");
+		System.out.println("\t niceee, i have marked this task done:");
+		System.out.println("\t  [" + this.getStatusIcon() + "] " + this.getDescription());
+		System.out.println("\t____________________________________________________________");
+	}
+	public void printTaskUnmarked() {
+		System.out.println("\t____________________________________________________________");
+		System.out.println("\t ok, i have marked this task as not done yet:");
+		System.out.println("\t  [" + this.getStatusIcon() + "] " + this.getDescription());
+		System.out.println("\t____________________________________________________________");
+	}
+	public void printWrongCommand() {
+		System.out.println("\t____________________________________________________________");
+		System.out.println("\t fat fingers fella. command does not exist. try again...");
+		System.out.println("\t____________________________________________________________");
+	}
+	public void printAdded() {
+		System.out.println("\t____________________________________________________________");
+		System.out.println("\t added: " + this.description);
+		System.out.println("\t____________________________________________________________");
+	}
+
 }

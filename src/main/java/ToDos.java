@@ -1,6 +1,6 @@
 public class ToDos extends Task {
-	public ToDos(String taskDescription, boolean done) {
-		super(taskDescription,done);
+	public ToDos(String taskDescription) {
+		super(taskDescription.substring(taskDescription.indexOf(' ')));
 	}
 	@Override
 	public String taskString() {
@@ -8,7 +8,7 @@ public class ToDos extends Task {
 	}
 
 	@Override
-	public void printAdded(String taskDescription) {
+	public void printAdded() {
 		System.out.println("\t____________________________________________________________");
 		System.out.println("\t sheeshh. new task. ok added:\n\t   " + taskString());
 		String singularOrPlural = super.getTotalTasks() == 1 ? " task" : " tasks";
