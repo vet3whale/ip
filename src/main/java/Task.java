@@ -17,28 +17,39 @@ public class Task {
 		return description;
 	}
 
+	public void printTaskMarked() {
+		System.out.println("\t____________________________________________________________");
+		System.out.println("\t niceee, i have marked this task done:");
+		System.out.println("\t  [" + this.getStatusIcon() + "] " + this.getDescription());
+		System.out.println("\t____________________________________________________________");
+	}
+	public void printTaskUnmarked() {
+		System.out.println("\t____________________________________________________________");
+		System.out.println("\t ok, i have marked this task as not done yet:");
+		System.out.println("\t  [" + this.getStatusIcon() + "] " + this.getDescription());
+		System.out.println("\t____________________________________________________________");
+	}
+	public void printWrongCommand() {
+		System.out.println("\t____________________________________________________________");
+		System.out.println("\t fat fingers fella. command does not exist. try again...");
+		System.out.println("\t____________________________________________________________");
+	}
 	// Setters
 	public void setCompletionStatus(String command) {
 		command = command.toLowerCase();
 		if (command.equals("mark")) {
 			this.isDone = true;
-			System.out.println("\t____________________________________________________________");
-			System.out.println("\t niceee, i have marked this task done:");
-			System.out.println("\t  [" + this.getStatusIcon() + "] " + this.getDescription());
-			System.out.println("\t____________________________________________________________");
+			printTaskMarked();
 		} else if (command.equals("unmark")) {
 			this.isDone = false;
-			System.out.println("\t____________________________________________________________");
-			System.out.println("\t ok, i have marked this task as not done yet:");
-			System.out.println("\t  [" + this.getStatusIcon() + "] " + this.getDescription());
-			System.out.println("\t____________________________________________________________");
+			printTaskUnmarked();
 		} else {
-			System.out.println("\t____________________________________________________________");
-			System.out.println("\t fat fingers fella. command does not exist. try again...");
-			System.out.println("\t____________________________________________________________");
+			printWrongCommand();
 		}
 	}
-
+	public String taskString() {
+		return "[" + this.getStatusIcon() + "] " + this.getDescription();
+	}
 	public void setDescription(String description) {
 		this.description = description;
 	}

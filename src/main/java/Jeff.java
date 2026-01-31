@@ -17,7 +17,7 @@ public class Jeff {
         for (int i = 0; i < count; i++) {
             int itemNumber = i+1;
             Task task = tasks[i];
-            System.out.println("\t " + itemNumber + ". [" + task.getStatusIcon() + "] " + task.getDescription());
+            System.out.println("\t " + itemNumber + ". " + task.taskString());
         }
         System.out.println("\t____________________________________________________________");
     }
