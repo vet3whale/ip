@@ -1,26 +1,26 @@
-public class Deadlines extends Task{
-	protected String by;
+public class Events extends Task{
+	protected String from;
+	protected String to;
 	public String getSuffix() {
-		return " (by: " + this.by + ")";
+		return " (from: " + this.from + " to: " + this.to + ")";
 	}
-	public Deadlines(String taskDescription) {
+	public Events(String taskDescription) {
 		super(taskDescription.substring(taskDescription.indexOf(" "),taskDescription.indexOf("/")-1));
-
-		int byStartIndex = taskDescription.indexOf("/") + 4;
-		int byEndIndex = taskDescription.length();
-		by = taskDescription.substring(byStartIndex, byEndIndex);
-		super.prefix = "D";
+		from = taskDescription.substring(taskDescription.indexOf("/from")+6, taskDescription.indexOf("/to")-1);
+		to = taskDescription.substring(taskDescription.indexOf("/to")+4);
+		super.prefix = "E";
 		super.suffix = getSuffix();
 	}
+
 	@Override
 	public String taskString() {
-		return "[D]" + super.taskString() + getSuffix();
+		return "[" + prefix + "]" + super.taskString() + getSuffix();
 	}
 
 	@Override
 	public void printAdded() {
 		System.out.println("\t____________________________________________________________");
-		System.out.println("\t shagg. need to get this done asap. ok added:\n\t   " + taskString());
+		System.out.println("\t new event! ok added:\n\t   " + taskString());
 		String singularOrPlural = getTotalTasks() == 1 ? " task" : " tasks";
 		System.out.println("\t now you have " + getTotalTasks() + singularOrPlural + " in your list!");
 		System.out.println("\t____________________________________________________________");

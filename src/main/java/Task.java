@@ -1,6 +1,8 @@
 public class Task {
 	protected String description;
 	protected boolean isDone = false;
+	protected String prefix = "";
+	protected String suffix = "";
 
 	public static int totalTasks = 0;
 
@@ -48,7 +50,7 @@ public class Task {
 	public void printTaskMarked() {
 		System.out.println("\t____________________________________________________________");
 		System.out.println("\t niceee, i have marked this task done:");
-		System.out.println("\t  [" + this.getStatusIcon() + "] " + this.getDescription());
+		System.out.println("\t [" + prefix +  "][" + this.getStatusIcon() + "] " + this.getDescription() + suffix);
 		System.out.println("\t____________________________________________________________");
 	}
 	public void printTaskUnmarked() {
