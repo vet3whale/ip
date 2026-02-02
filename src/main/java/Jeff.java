@@ -4,8 +4,10 @@ public class Jeff {
     public static void receiveInput() {
         Task[] tasks = new Task[100];
         int count = 0;
+
         Scanner in = new Scanner(System.in);
         String response = in.nextLine();
+
         while (!response.equals("bye")) {
             String[] words = response.split(" ");
             if (words[0].equals("todo")) { // TODOs
@@ -86,7 +88,6 @@ public class Jeff {
             response += " /to tbd";
         } else if (!response.contains("/from")) {
             String[] words = response.split("/to");
-            System.out.println(words[0] + words[1]);
             response = words[0] + "/from tbd /to" + words[1];
         } else if (response.indexOf("/to")+2 == response.length()-1){
             response += " tbd";

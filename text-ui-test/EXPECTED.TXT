@@ -1,7 +1,71 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+	____________________________________________________________
+	 Hello, mynameJeff
+	 What can i do for you?
+	____________________________________________________________
+	____________________________________________________________
+	 sheeshh. new task. ok added:
+	   [T][ ] read book
+	 now you have 1 task in your list!
+	____________________________________________________________
+	____________________________________________________________
+	 shagg. need to get this done asap. ok added:
+	   [D][ ] submit report (by: monday)
+	 now you have 2 tasks in your list!
+	____________________________________________________________
+	____________________________________________________________
+	 new event! ok added:
+	   [E][ ] project meeting (from: 2pm to: 4pm)
+	 now you have 3 tasks in your list!
+	____________________________________________________________
+	____________________________________________________________
+	 shagg. need to get this done asap. ok added:
+	   [D][ ] another deadline (by: tbd)
+	 now you have 4 tasks in your list!
+	____________________________________________________________
+	____________________________________________________________
+	 new event! ok added:
+	   [E][ ] event-no-to (from: 3pm to: tbd)
+	 now you have 5 tasks in your list!
+	____________________________________________________________
+	____________________________________________________________
+	 new event! ok added:
+	   [E][ ] event-no-from (from: tbd to: 5pm)
+	 now you have 6 tasks in your list!
+	____________________________________________________________
+	____________________________________________________________
+	 new event! ok added:
+	   [E][ ] event-no-both (from: tbd to: tbd)
+	 now you have 7 tasks in your list!
+	____________________________________________________________
+	____________________________________________________________
+	 1. [T][ ] read book
+	 2. [D][ ] submit report (by: monday)
+	 3. [E][ ] project meeting (from: 2pm to: 4pm)
+	 4. [D][ ] another deadline (by: tbd)
+	 5. [E][ ] event-no-to (from: 3pm to: tbd)
+	 6. [E][ ] event-no-from (from: tbd to: 5pm)
+	 7. [E][ ] event-no-both (from: tbd to: tbd)
+	____________________________________________________________
+	____________________________________________________________
+	 niceee, i have marked this task done:
+	 [D][X]  submit report (by: monday)
+	____________________________________________________________
+	____________________________________________________________
+	 ok, i have marked this task as not done yet:
+	  [ ] read book
+	____________________________________________________________
+	____________________________________________________________
+	 delusional fella. task does not exist. try again...
+	____________________________________________________________
+	____________________________________________________________
+	 1. [T][ ] read book
+	 2. [D][X] submit report (by: monday)
+	 3. [E][ ] project meeting (from: 2pm to: 4pm)
+	 4. [D][ ] another deadline (by: tbd)
+	 5. [E][ ] event-no-to (from: 3pm to: tbd)
+	 6. [E][ ] event-no-from (from: tbd to: 5pm)
+	 7. [E][ ] event-no-both (from: tbd to: tbd)
+	____________________________________________________________
+	____________________________________________________________
+	 Bye. Hope to see you again soon!
+	____________________________________________________________

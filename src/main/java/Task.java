@@ -40,7 +40,7 @@ public class Task {
 		}
 	}
 	public String taskString() {
-		return "[" + this.getStatusIcon() + "] " + this.getDescription();
+		return "[" + this.getStatusIcon() + "]" + this.getDescription();
 	}
 	public void setDescription(String description) {
 		this.description = description;
@@ -56,7 +56,7 @@ public class Task {
 	public void printTaskUnmarked() {
 		System.out.println("\t____________________________________________________________");
 		System.out.println("\t ok, i have marked this task as not done yet:");
-		System.out.println("\t  [" + this.getStatusIcon() + "] " + this.getDescription());
+		System.out.println("\t  [" + this.getStatusIcon() + "]" + this.getDescription());
 		System.out.println("\t____________________________________________________________");
 	}
 	public void printWrongCommand() {
