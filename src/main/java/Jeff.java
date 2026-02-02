@@ -10,38 +10,49 @@ public class Jeff {
 
         while (!response.equals("bye")) {
             String[] words = response.split(" ");
-            if (words[0].equals("todo")) { // TODOs
+            String command = words[0];
+            switch (command) {
+            case "todo": // TODOs
                 tasks[count] = new ToDos(response);
                 tasks[count].printAdded();
                 count++;
-            } else if (words[0].equals("deadline")) { // DEADLINES
+                break;
+
+            case "deadline": // DEADLINES
                 response = verifyDeadline(response);
                 tasks[count] = new Deadlines(response);
                 tasks[count].printAdded();
                 count++;
-            } else if (words[0].equals("event")) { // EVENTS
+                break;
+
+            case "event": // EVENTS
                 response = verifyEvent(response);
                 tasks[count] = new Events(response);
                 tasks[count].printAdded();
                 count++;
-            } else if (words.length > 1 && isDigit(words[1])) {
-                int idx = Integer.parseInt(words[1]);
-                String command = words[0];
-                if (idx > count) {
-                    System.out.println("\t____________________________________________________________");
-                    System.out.println("\t delusional fella. task does not exist. try again...");
-                    System.out.println("\t____________________________________________________________");
+                break;
+
+            case "mark":
+            case "unmark":
+                if (words.length > 1 && isDigit(words[1])) {
+                    int idx = Integer.parseInt(words[1]);
+                    if (idx > count) {
+                        idxOutOfBounds();
+                    } else {
+                        tasks[idx - 1].setCompletionStatus(command);
+                    }
+                } else {
+                    idxOutOfBounds();
                 }
-                else {
-                    tasks[idx-1].setCompletionStatus(command);
-                }
-            }
-            else if (response.equals("list")) {
+                break;
+
+            case "list":
                 printList(tasks, count);
-            } else {
-                tasks[count] = new Task(response);
-                tasks[count].printAdded();
-                count++;
+                break;
+
+            default:
+                invalidCommand();
+                break;
             }
             response = in.nextLine();
         }
@@ -50,16 +61,9 @@ public class Jeff {
     public static void main(String[] args) {
         String chatbotName = "Jeff";
 
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t Hello, myname" + chatbotName);
-        System.out.println("\t What can i do for you?");
-        System.out.println("\t____________________________________________________________");
-
+        helloGreeting(chatbotName);
         receiveInput();
-
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t Bye. Hope to see you again soon!");
-        System.out.println("\t____________________________________________________________");
+        byeGreeting();
     }
 
     public static boolean isDigit(String word) {
@@ -93,6 +97,28 @@ public class Jeff {
             response += " tbd";
         }
         return response;
+    }
+
+    public static void helloGreeting(String chatbotName) {
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\t Hello, myname" + chatbotName);
+        System.out.println("\t What can i do for you?");
+        System.out.println("\t____________________________________________________________");
+    }
+    public static void byeGreeting() {
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\t Bye. Hope to see you again soon!");
+        System.out.println("\t____________________________________________________________");
+    }
+    public static void idxOutOfBounds() {
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\t delusional fella. task does not exist. try again...");
+        System.out.println("\t____________________________________________________________");
+    }
+    public static void invalidCommand() {
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\t \"random nonsense go\" fella. invalid command. try again...");
+        System.out.println("\t____________________________________________________________");
     }
     public static void printList(Task[] tasks, int count){
         System.out.println("\t____________________________________________________________");
