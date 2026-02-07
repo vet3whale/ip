@@ -50,12 +50,12 @@ public class Jeff {
                     if (words.length > 1 && isDigit(words[1])) {
                         int idx = Integer.parseInt(words[1]);
                         if (idx > count) {
-                            idxOutOfBounds();
+                            throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
                         } else {
                             tasks[idx - 1].setCompletionStatus(command);
                         }
                     } else {
-                        idxOutOfBounds();
+                        throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
                     }
                     break;
                 case LIST:
@@ -119,11 +119,6 @@ public class Jeff {
     public static void byeGreeting() {
         System.out.println("\t____________________________________________________________");
         System.out.println("\t Bye. Hope to see you again soon!");
-        System.out.println("\t____________________________________________________________");
-    }
-    public static void idxOutOfBounds() {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t delusional fella. task does not exist. try again...");
         System.out.println("\t____________________________________________________________");
     }
 

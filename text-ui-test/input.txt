@@ -1,4 +1,7 @@
 no command task
+todo
+deadline
+event
 todo read book
 deadline submit report /by monday
 event project meeting /from 2pm /to 4pm

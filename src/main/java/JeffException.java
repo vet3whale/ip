@@ -2,7 +2,8 @@ public class JeffException extends Exception {
 
 	public enum ErrorType {
 		INCOMPLETE_COMMAND,
-		UNKNOWN_COMMAND
+		UNKNOWN_COMMAND,
+		IDX_OUTOFBOUNDS
 	}
 
 	private ErrorType type;
@@ -24,6 +25,11 @@ public class JeffException extends Exception {
 		case UNKNOWN_COMMAND:
 			System.out.println("\t____________________________________________________________");
 			System.out.println("\t \"random nonsense go\" fella. invalid command. try again...");
+			System.out.println("\t____________________________________________________________");
+			break;
+		case IDX_OUTOFBOUNDS:
+			System.out.println("\t____________________________________________________________");
+			System.out.println("\t delusional fella. task does not exist. try again...");
 			System.out.println("\t____________________________________________________________");
 			break;
 		default:
