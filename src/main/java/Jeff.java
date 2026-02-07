@@ -1,7 +1,11 @@
 import java.util.Scanner;
 
 public class Jeff {
-    public static void receiveInput() {
+    private enum CommandType {
+        TODO, DEADLINE, EVENT, MARK, UNMARK, LIST
+    }
+
+    public static void receiveInput() throws JeffException {
         Task[] tasks = new Task[100];
         int count = 0;
 
@@ -9,56 +13,63 @@ public class Jeff {
         String response = in.nextLine();
 
         while (!response.equals("bye")) {
-            String[] words = response.split(" ");
-            String command = words[0];
-            switch (command) {
-            case "todo": // TODOs
-                tasks[count] = new ToDos(response);
-                tasks[count].printAdded();
-                count++;
-                break;
+            try {
+                String[] words = response.split(" ");
+                String command = words[0];
+                CommandType cmdType = parseCommand(command);
 
-            case "deadline": // DEADLINES
-                response = verifyDeadline(response);
-                tasks[count] = new Deadlines(response);
-                tasks[count].printAdded();
-                count++;
-                break;
-
-            case "event": // EVENTS
-                response = verifyEvent(response);
-                tasks[count] = new Events(response);
-                tasks[count].printAdded();
-                count++;
-                break;
-
-            case "mark":
-            case "unmark":
-                if (words.length > 1 && isDigit(words[1])) {
-                    int idx = Integer.parseInt(words[1]);
-                    if (idx > count) {
-                        idxOutOfBounds();
-                    } else {
-                        tasks[idx - 1].setCompletionStatus(command);
+                switch (cmdType) {
+                case TODO:
+                    if (words.length < 2) {
+                        throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "todo");
                     }
-                } else {
-                    idxOutOfBounds();
+                    tasks[count] = new ToDos(response);
+                    tasks[count].printAdded();
+                    count++;
+                    break;
+                case DEADLINE:
+                    if (words.length < 2) {
+                        throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "deadline");
+                    }
+                    response = verifyDeadline(response);
+                    tasks[count] = new Deadlines(response);
+                    tasks[count].printAdded();
+                    count++;
+                    break;
+                case EVENT:
+                    if (words.length < 2) {
+                        throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "event");
+                    }
+                    response = verifyEvent(response);
+                    tasks[count] = new Events(response);
+                    tasks[count].printAdded();
+                    count++;
+                    break;
+                case MARK:
+                case UNMARK:
+                    if (words.length > 1 && isDigit(words[1])) {
+                        int idx = Integer.parseInt(words[1]);
+                        if (idx > count) {
+                            throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
+                        } else {
+                            tasks[idx - 1].setCompletionStatus(command);
+                        }
+                    } else {
+                        throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
+                    }
+                    break;
+                case LIST:
+                    printList(tasks, count);
+                    break;
                 }
-                break;
-
-            case "list":
-                printList(tasks, count);
-                break;
-
-            default:
-                invalidCommand();
-                break;
+            } catch (JeffException e) {
             }
             response = in.nextLine();
         }
+
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JeffException {
         String chatbotName = "Jeff";
 
         helloGreeting(chatbotName);
@@ -110,16 +121,25 @@ public class Jeff {
         System.out.println("\t Bye. Hope to see you again soon!");
         System.out.println("\t____________________________________________________________");
     }
-    public static void idxOutOfBounds() {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t delusional fella. task does not exist. try again...");
-        System.out.println("\t____________________________________________________________");
+
+    private static CommandType parseCommand(String input) throws JeffException {
+        if (input == null || input.isBlank()) {
+            throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "command");
+        }
+
+        String[] words = input.trim().split(" ");
+        String cmd = words[0].toLowerCase();
+        return switch (cmd) {
+            case "todo" -> CommandType.TODO;
+            case "deadline" -> CommandType.DEADLINE;
+            case "event" -> CommandType.EVENT;
+            case "mark" -> CommandType.MARK;
+            case "unmark" -> CommandType.UNMARK;
+            case "list" -> CommandType.LIST;
+            default -> throw new JeffException(JeffException.ErrorType.UNKNOWN_COMMAND, words[0]);
+        };
     }
-    public static void invalidCommand() {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t \"random nonsense go\" fella. invalid command. try again...");
-        System.out.println("\t____________________________________________________________");
-    }
+
     public static void printList(Task[] tasks, int count){
         System.out.println("\t____________________________________________________________");
         for (int i = 0; i < count; i++) {
