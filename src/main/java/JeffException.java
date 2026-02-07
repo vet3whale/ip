@@ -6,22 +6,8 @@ public class JeffException extends Exception {
 	}
 
 	private ErrorType type;
-	private String command = "";
+	private String command;
 
-	String incompleteCommandMessage =
-			("\t____________________________________________________________")
-					+ "\t" + this.command + "?" + this.command + " what? please complete your command"
-					+  ("\t____________________________________________________________");
-	String unknownCommandMessage =
-			("\t____________________________________________________________")
-					+  ("\t \"random nonsense go\" fella. invalid command. try again...")
-					+  ("\t____________________________________________________________");
-	
-	String defaultErrorMessage =
-			("\t____________________________________________________________")
-					+  ("\t error! try again...")
-					+  ("\t____________________________________________________________");
-	
 	public JeffException(ErrorType type, String command) {
 		this.type = type;
 		this.command = command;
@@ -30,13 +16,22 @@ public class JeffException extends Exception {
 
 	private void buildMessage(ErrorType type, String command) {
 		switch (type) {
-			case INCOMPLETE_COMMAND:
-				System.out.println(incompleteCommandMessage);
-			case UNKNOWN_COMMAND:
-				System.out.println(unknownCommandMessage);
-			default:
-				System.out.println(defaultErrorMessage);
-		};
+		case INCOMPLETE_COMMAND:
+			System.out.println("\t____________________________________________________________");
+			System.out.println("\t " + command + "? " + command + " what? please complete your command!");
+			System.out.println("\t____________________________________________________________");
+			break;
+		case UNKNOWN_COMMAND:
+			System.out.println("\t____________________________________________________________");
+			System.out.println("\t \"random nonsense go\" fella. invalid command. try again...");
+			System.out.println("\t____________________________________________________________");
+			break;
+		default:
+			System.out.println("\t____________________________________________________________");
+			System.out.println("\t error! try again...");
+			System.out.println("\t____________________________________________________________");
+			break;
+		}
 	}
 
 	public ErrorType getType() {
@@ -47,4 +42,3 @@ public class JeffException extends Exception {
 		return command;
 	}
 }
-
