@@ -1,3 +1,11 @@
+package jeff;
+
+import jeff.assets.Deadlines;
+import jeff.assets.Events;
+import jeff.assets.Task;
+import jeff.assets.ToDos;
+import jeff.exceptions.JeffException;
+
 import java.util.Scanner;
 
 public class Jeff {
@@ -70,7 +78,7 @@ public class Jeff {
     }
 
     public static void main(String[] args) throws JeffException {
-        String chatbotName = "Jeff";
+        String chatbotName = "jeff.Jeff";
 
         helloGreeting(chatbotName);
         receiveInput();

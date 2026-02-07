@@ -1,3 +1,5 @@
+package jeff.assets;
+
 public class Deadlines extends Task{
 	protected String by;
 	public String getSuffix() {

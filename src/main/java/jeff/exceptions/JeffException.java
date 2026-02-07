@@ -1,3 +1,5 @@
+package jeff.exceptions;
+
 public class JeffException extends Exception {
 
 	public enum ErrorType {
