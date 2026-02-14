@@ -29,7 +29,7 @@ public class Jeff {
                 String[] words = response.split(" ");
                 String command = words[0];
                 CommandType cmdType = parseCommand(command);
-
+                int idx;
                 switch (cmdType) {
                 case TODO:
                     if (words.length < 2) {
@@ -58,7 +58,7 @@ public class Jeff {
                     if (words.length < 2) {
                         throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "delete");
                     }
-                    int idx = Integer.parseInt(words[1]);
+                    idx = Integer.parseInt(words[1]);
                     if (idx >= tasks.size()) {
                         throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
                     } else {
