@@ -10,6 +10,9 @@ event event-no-to /from 3pm
 event event-no-from /to 5pm
 event event-no-both
 list
+delete 10
+delete
+delete 1
 mark 2
 unmark 1
 mark 10
