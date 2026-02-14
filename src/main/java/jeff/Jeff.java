@@ -10,9 +10,13 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 public class Jeff {
+    
     private enum CommandType {
-        TODO, DEADLINE, EVENT, MARK, UNMARK, LIST
+        TODO, DEADLINE, EVENT, MARK, UNMARK, LIST, DELETE
     }
+    private static String[] commandStrings = {
+            "todo", "deadline", "event", "mark", "unmark", "list", "delete"
+    };
 
     public static void receiveInput() throws JeffException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -134,15 +138,14 @@ public class Jeff {
 
         String[] words = input.trim().split(" ");
         String cmd = words[0].toLowerCase();
-        return switch (cmd) {
-            case "todo" -> CommandType.TODO;
-            case "deadline" -> CommandType.DEADLINE;
-            case "event" -> CommandType.EVENT;
-            case "mark" -> CommandType.MARK;
-            case "unmark" -> CommandType.UNMARK;
-            case "list" -> CommandType.LIST;
-            default -> throw new JeffException(JeffException.ErrorType.UNKNOWN_COMMAND, words[0]);
-        };
+        int count = 0;
+        for (String commandString : commandStrings) {
+            if (commandString.equals(cmd)) {
+                return CommandType.values()[count];
+            }
+            count++;
+        }
+        throw new JeffException(JeffException.ErrorType.UNKNOWN_COMMAND, cmd);
     }
 
     public static void printList(ArrayList<Task> tasks){
