@@ -14,6 +14,15 @@ public class Deadlines extends Task{
 		super.prefix = "D";
 		super.suffix = getSuffix();
 	}
+
+	public String getBy() {
+		return by;
+	}
+
+	public void setBy(String by) {
+		this.by = by;
+	}
+
 	@Override
 	public String taskString() {
 		return "[D]" + super.taskString() + getSuffix();
