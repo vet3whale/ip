@@ -29,6 +29,11 @@ public class Deadlines extends Task{
 	}
 
 	@Override
+	public String loadingString() {
+		String doneStatus = this.isDone ? "X" : " ";
+		return prefix + "|" + doneStatus + "|" + this.description + "|" +  this.by;
+	}
+	@Override
 	public void printAdded() {
 		System.out.println("\t____________________________________________________________");
 		System.out.println("\t shagg. need to get this done asap. ok added:\n\t   " + taskString());

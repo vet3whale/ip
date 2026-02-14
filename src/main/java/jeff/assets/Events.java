@@ -36,6 +36,12 @@ public class Events extends Task{
 	}
 
 	@Override
+	public String loadingString() {
+		String doneStatus = this.isDone ? "X" : " ";
+		return prefix + "|" + doneStatus + "|" + this.description + "|" + this.from + "|" + this.to;
+	}
+
+	@Override
 	public void printAdded() {
 		System.out.println("\t____________________________________________________________");
 		System.out.println("\t new event! ok added:\n\t   " + taskString());
