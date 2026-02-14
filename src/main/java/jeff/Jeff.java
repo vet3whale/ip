@@ -8,7 +8,7 @@ import jeff.exceptions.JeffException;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Arrays;
+    import java.util.Arrays;
 public class Jeff {
 
     private enum CommandType {
@@ -20,7 +20,7 @@ public class Jeff {
 
     public static void receiveInput() throws JeffException {
         ArrayList<Task> tasks = new ArrayList<>();
-
+        LoadStoreTasks.loadTasks(tasks);
         Scanner in = new Scanner(System.in);
         String response = in.nextLine();
 
@@ -74,7 +74,7 @@ public class Jeff {
                         if (idx >= tasks.size()) {
                             throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
                         } else {
-                            tasks.get(idx - 1).setCompletionStatus(command);
+                            tasks.get(idx).setCompletionStatus(command);
                         }
                     } else {
                         throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
@@ -86,13 +86,13 @@ public class Jeff {
                 }
             } catch (JeffException e) {
             }
+            LoadStoreTasks.storeTasks(tasks);
             response = in.nextLine();
         }
-
     }
 
     public static void main(String[] args) throws JeffException {
-        String chatbotName = "jeff.Jeff";
+        String chatbotName = "jeff";
 
         helloGreeting(chatbotName);
         receiveInput();

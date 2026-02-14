@@ -12,6 +12,12 @@ public class ToDos extends Task {
 	}
 
 	@Override
+	public String loadingString() {
+		String doneStatus = this.isDone ? "X" : " ";
+		return prefix + "|" + doneStatus + "|" + this.description;
+	}
+
+	@Override
 	public void printAdded() {
 		System.out.println("\t____________________________________________________________");
 		System.out.println("\t sheeshh. new task. ok added:\n\t   " + taskString());

@@ -14,9 +14,31 @@ public class Events extends Task{
 		super.suffix = getSuffix();
 	}
 
+	public String getFrom() {
+		return from;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+	public String getTo() {
+		return to;
+	}
+
+	public void setTo(String to) {
+		this.to = to;
+	}
+
 	@Override
 	public String taskString() {
 		return "[" + prefix + "]" + super.taskString() + getSuffix();
+	}
+
+	@Override
+	public String loadingString() {
+		String doneStatus = this.isDone ? "X" : " ";
+		return prefix + "|" + doneStatus + "|" + this.description + "|" + this.from + "|" + this.to;
 	}
 
 	@Override
