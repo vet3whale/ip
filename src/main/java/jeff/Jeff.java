@@ -10,11 +10,11 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 public class Jeff {
-    
+
     private enum CommandType {
         TODO, DEADLINE, EVENT, MARK, UNMARK, LIST, DELETE
     }
-    private static String[] commandStrings = {
+    private static final String[] commandStrings = {
             "todo", "deadline", "event", "mark", "unmark", "list", "delete"
     };
 
@@ -54,11 +54,24 @@ public class Jeff {
                     tasks.add(new Events(response));
                     tasks.get(tasks.size()-1).printAdded();
                     break;
+                case DELETE:
+                    if (words.length < 2) {
+                        throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "delete");
+                    }
+                    int idx = Integer.parseInt(words[1]);
+                    if (idx >= tasks.size()) {
+                        throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
+                    } else {
+                        Task taskToDelete = tasks.get(idx);
+                        tasks.remove(taskToDelete);
+                        printDeletedStatus(taskToDelete, tasks);
+                    }
+                    break;
                 case MARK:
                 case UNMARK:
                     if (words.length > 1 && isDigit(words[1])) {
-                        int idx = Integer.parseInt(words[1]);
-                        if (idx > tasks.size()) {
+                        idx = Integer.parseInt(words[1]);
+                        if (idx >= tasks.size()) {
                             throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
                         } else {
                             tasks.get(idx - 1).setCompletionStatus(command);
@@ -130,7 +143,13 @@ public class Jeff {
         System.out.println("\t Bye. Hope to see you again soon!");
         System.out.println("\t____________________________________________________________");
     }
-
+    public static void printDeletedStatus(Task task, ArrayList<Task> tasks) {
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\t noted, following task has been deleted:");
+        System.out.println("\t  " + task.taskString());
+        System.out.println("\t now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("\t____________________________________________________________");
+    }
     private static CommandType parseCommand(String input) throws JeffException {
         if (input == null || input.isBlank()) {
             throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "command");
