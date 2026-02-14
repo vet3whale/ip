@@ -7,15 +7,15 @@ import jeff.assets.ToDos;
 import jeff.exceptions.JeffException;
 
 import java.util.Scanner;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 public class Jeff {
     private enum CommandType {
         TODO, DEADLINE, EVENT, MARK, UNMARK, LIST
     }
 
     public static void receiveInput() throws JeffException {
-        Task[] tasks = new Task[100];
-        int count = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         Scanner in = new Scanner(System.in);
         String response = in.nextLine();
@@ -31,43 +31,40 @@ public class Jeff {
                     if (words.length < 2) {
                         throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "todo");
                     }
-                    tasks[count] = new ToDos(response);
-                    tasks[count].printAdded();
-                    count++;
+                    tasks.add(new ToDos(response));
+                    tasks.get(tasks.size()-1).printAdded();
                     break;
                 case DEADLINE:
                     if (words.length < 2) {
                         throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "deadline");
                     }
                     response = verifyDeadline(response);
-                    tasks[count] = new Deadlines(response);
-                    tasks[count].printAdded();
-                    count++;
+                    tasks.add(new Deadlines(response));
+                    tasks.get(tasks.size()-1).printAdded();
                     break;
                 case EVENT:
                     if (words.length < 2) {
                         throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "event");
                     }
                     response = verifyEvent(response);
-                    tasks[count] = new Events(response);
-                    tasks[count].printAdded();
-                    count++;
+                    tasks.add(new Events(response));
+                    tasks.get(tasks.size()-1).printAdded();
                     break;
                 case MARK:
                 case UNMARK:
                     if (words.length > 1 && isDigit(words[1])) {
                         int idx = Integer.parseInt(words[1]);
-                        if (idx > count) {
+                        if (idx > tasks.size()) {
                             throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
                         } else {
-                            tasks[idx - 1].setCompletionStatus(command);
+                            tasks.get(idx - 1).setCompletionStatus(command);
                         }
                     } else {
                         throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
                     }
                     break;
                 case LIST:
-                    printList(tasks, count);
+                    printList(tasks);
                     break;
                 }
             } catch (JeffException e) {
@@ -148,12 +145,10 @@ public class Jeff {
         };
     }
 
-    public static void printList(Task[] tasks, int count){
+    public static void printList(ArrayList<Task> tasks){
         System.out.println("\t____________________________________________________________");
-        for (int i = 0; i < count; i++) {
-            int itemNumber = i+1;
-            Task task = tasks[i];
-            System.out.println("\t " + itemNumber + ". " + task.taskString());
+        for (Task task : tasks) {
+            System.out.println("\t " + tasks.indexOf(task) + ". " + task.taskString());
         }
         System.out.println("\t____________________________________________________________");
     }
