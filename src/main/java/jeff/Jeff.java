@@ -1,6 +1,11 @@
 package jeff;
 
+import jeff.assets.TaskList;
+import jeff.command.Command;
 import jeff.exceptions.JeffException;
+import jeff.parser.Parser;
+import jeff.storage.Storage;
+import jeff.ui.Ui;
 
 public class Jeff {
     private static Storage storage;
@@ -17,7 +22,7 @@ public class Jeff {
         ui = new Ui();
     }
 
-    public void run() {
+    public static void run() throws JeffException {
         storage.loadTasks(tasks);
         Parser parser = new Parser();
 
@@ -26,8 +31,14 @@ public class Jeff {
 
         boolean isExit = false;
         while (!isExit) {
-            String fullCommand = ui.readCommand();
-            isExit = parser.readResponse(fullCommand, tasks);
+            try {
+                String fullCommand = ui.readCommand();
+                Command c = parser.readResponse(fullCommand, tasks);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (JeffException e) {
+
+            }
         }
     }
 

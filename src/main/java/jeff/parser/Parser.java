@@ -1,5 +1,7 @@
-package jeff;
+package jeff.parser;
 
+import jeff.command.*;
+import jeff.ui.Ui;
 import jeff.assets.Deadlines;
 import jeff.assets.Events;
 import jeff.assets.Task;
@@ -62,74 +64,48 @@ public class Parser {
 		}
 		return response;
 	}
-	public static boolean readResponse(String response, ArrayList<Task> tasks) {
-		boolean isExit = false;
-		try {
-			String[] words = response.split(" ");
-			String command = words[0];
-			CommandType cmdType = parseCommand(command);
-			int idx;
+	public static Command readResponse(String response, ArrayList<Task> tasks) throws JeffException {
+		String[] words = response.split(" ");
+		String command = words[0];
+		CommandType cmdType = parseCommand(command);
+		int idx;
 
-			switch (cmdType) {
-			case TODO:
-				if (words.length < 2) {
-					throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "todo");
-				}
-				tasks.add(new ToDos(response));
-				tasks.get(tasks.size()-1).printAdded();
-				break;
-			case DEADLINE:
-				if (words.length < 2) {
-					throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "deadline");
-				}
-				response = verifyDeadline(response);
-				tasks.add(new Deadlines(response));
-				tasks.get(tasks.size()-1).printAdded();
-				break;
-			case EVENT:
-				if (words.length < 2) {
-					throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "event");
-				}
-				response = verifyEvent(response);
-				tasks.add(new Events(response));
-				tasks.get(tasks.size()-1).printAdded();
-				break;
-			case DELETE:
-				if (words.length < 2) {
-					throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "delete");
-				}
-				idx = Integer.parseInt(words[1]);
-				if (idx >= tasks.size()) {
-					throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
-				} else {
-					Task taskToDelete = tasks.get(idx);
-					tasks.remove(taskToDelete);
-					ui.printDeletedStatus(taskToDelete, tasks);
-				}
-				break;
-			case MARK:
-			case UNMARK:
-				if (words.length > 1 && isDigit(words[1])) {
-					idx = Integer.parseInt(words[1]);
-					if (idx >= tasks.size()) {
-						throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
-					} else {
-						tasks.get(idx).setCompletionStatus(command);
-					}
-				} else {
-					throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
-				}
-				break;
-			case LIST:
-				ui.printList(tasks);
-				break;
-			case BYE:
-				isExit = true;
+		switch (cmdType) {
+		case TODO:
+			if (words.length < 2) {
+				throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "todo");
 			}
-		} catch (JeffException e) {
+			return new AddCommand(new ToDos(response));
+		case DEADLINE:
+			if (words.length < 2) {
+				throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "deadline");
+			}
+			return new AddCommand(new Deadlines(verifyDeadline(response)));
+		case EVENT:
+			if (words.length < 2) {
+				throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "event");
+			}
+			return new AddCommand(new Events(verifyEvent(response)));
+		case DELETE:
+			if (words.length < 2) {
+				throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "delete");
+			}
+			return new DeleteCommand(Integer.parseInt(words[1]));
+		case MARK:
+		case UNMARK:
+			if (words.length < 2 || !isDigit(words[1])) {
+				throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, command);
+			}
+			return new MarkUnmarkCommand(Integer.parseInt(words[1]), command.equals("mark"));
+		case LIST:
+			return new ListCommand();
+		case BYE:
+			return new ByeCommand();
+		default:
+			throw new JeffException(JeffException.ErrorType.UNKNOWN_COMMAND, command);
 		}
-		return isExit;
 	}
+
 	public static boolean isDigit(String word) {
 		if (word == null) {
 			return false;

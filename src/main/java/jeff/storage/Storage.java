@@ -1,4 +1,4 @@
-package jeff;
+package jeff.storage;
 
 import jeff.assets.Deadlines;
 import jeff.assets.Events;

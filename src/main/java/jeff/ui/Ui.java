@@ -1,4 +1,4 @@
-package jeff;
+package jeff.ui;
 
 import jeff.assets.Task;
 
