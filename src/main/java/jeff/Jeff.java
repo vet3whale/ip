@@ -8,7 +8,7 @@ import jeff.exceptions.JeffException;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-    import java.util.Arrays;
+
 public class Jeff {
 
     private enum CommandType {
@@ -133,22 +133,29 @@ public class Jeff {
     }
 
     public static void helloGreeting(String chatbotName) {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t Hello, myname" + chatbotName);
-        System.out.println("\t What can i do for you?");
-        System.out.println("\t____________________________________________________________");
+        System.out.println("____________________________________________________________");
+        System.out.println("Hello, my name is " + chatbotName);
+        System.out.println("       __  _______  _______  _______");
+        System.out.println("      |   ||      ||       ||       |");
+        System.out.println("      |   ||    __||    ___||    ___|");
+        System.out.println("      |   ||   |__ |   |___ |   |___");
+        System.out.println("   ___|   ||    __||    ___||    ___|");
+        System.out.println("  |       ||   |___|   |    |   |");
+        System.out.println("  |_______||_______|___|    |___|");
+        System.out.println("What can I do for you?");
+        System.out.println("____________________________________________________________");
     }
     public static void byeGreeting() {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t Bye. Hope to see you again soon!");
-        System.out.println("\t____________________________________________________________");
+        System.out.println("____________________________________________________________");
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("____________________________________________________________");
     }
     public static void printDeletedStatus(Task task, ArrayList<Task> tasks) {
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t noted, following task has been deleted:");
-        System.out.println("\t  " + task.taskString());
-        System.out.println("\t now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("\t____________________________________________________________");
+        System.out.println("____________________________________________________________");
+        System.out.println(" noted, following task has been deleted:");
+        System.out.println("  " + task.taskString());
+        System.out.println(" now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
     }
     private static CommandType parseCommand(String input) throws JeffException {
         if (input == null || input.isBlank()) {
@@ -168,10 +175,10 @@ public class Jeff {
     }
 
     public static void printList(ArrayList<Task> tasks){
-        System.out.println("\t____________________________________________________________");
+        System.out.println("____________________________________________________________");
         for (Task task : tasks) {
-            System.out.println("\t " + tasks.indexOf(task) + ". " + task.taskString());
+            System.out.println(" " + tasks.indexOf(task) + ". " + task.taskString());
         }
-        System.out.println("\t____________________________________________________________");
+        System.out.println("____________________________________________________________");
     }
 }

@@ -18,22 +18,23 @@ public class LoadStoreTasks{
 	public static void loadTasks(ArrayList<Task> tasks) {
 		File file = new File(filePath);
 		if (!file.getParentFile().exists()) {
-			file.getParentFile().mkdirs();
+			file.getParentFile().mkdirs(); // doesnt exist, so create folder
 		}
+
 		try (Scanner s = new Scanner(file)) {
 			while (s.hasNextLine()) {
 				String taskString = s.nextLine();
 				addTask(taskString, tasks);
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("\t no saved tasks file—starting fresh.");
+			System.out.println(" no saved tasks file—starting fresh.");
 		}
 	}
 
 	public static void storeTasks(ArrayList<Task> tasks) {
 		File file = new File(filePath);
 		if (!file.getParentFile().exists()) {
-			file.getParentFile().mkdirs();
+			file.getParentFile().mkdirs(); // doesnt exist, so create folder
 		}
 		try (FileWriter fw = new FileWriter(file)) {
 			for (Task task : tasks) {
@@ -45,15 +46,14 @@ public class LoadStoreTasks{
 	}
 
 	public static void addTask(String taskString, ArrayList<Task> tasks) {
-		int taskTypeIdx = 0;
-		int doneIdx = taskString.indexOf("|") + 1;
-		int descStart = taskString.indexOf("|", doneIdx)+1;
-		int descEnd = taskString.indexOf("|", descStart);
-		descEnd = descEnd == -1 ? taskString.length(): descEnd;
+		// parts[0] = taskType char, parts[1] = done flag, parts[2] = desc,
+		// parts[3] = by (Deadline) OR from (Event), parts[4] = to (Event)
+		// Example: E| | go for run|5pm|6pm
+		String[] parts = taskString.split("\\|", -1);
 
-		char taskType = taskString.charAt(taskTypeIdx);
-		String desc = taskString.substring(descStart, descEnd);
-		boolean isDone = taskString.charAt(doneIdx) == 'X';
+		char taskType = parts[0].trim().charAt(0);
+		boolean isDone = parts[1].trim().equals("X");
+		String desc = parts[2];
 
 		Task task;
 		switch (taskType) {
@@ -61,15 +61,12 @@ public class LoadStoreTasks{
 			task = new ToDos(desc);
 			break;
 		case 'D':
-			int byStart = taskString.indexOf("|", descEnd) + 1;
-			String by = taskString.substring(byStart).trim();
+			String by = parts[3];
 			task = new Deadlines(desc + " /by " + by);
 			break;
 		case 'E':
-			int fromStart = taskString.indexOf("|", descEnd) + 1;
-			int toStart = taskString.lastIndexOf("|", taskString.length() - 1);
-			String from = taskString.substring(fromStart, toStart).trim();
-			String to = taskString.substring(toStart + 1).trim();
+			String from = parts[3];
+			String to = parts[4];
 			task = new Events(desc + " /from " + from + " /to " + to);
 			break;
 		default:

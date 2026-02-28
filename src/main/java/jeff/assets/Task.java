@@ -56,26 +56,26 @@ public class Task {
 
 	// Printing Methods
 	public void printTaskMarked() {
-		System.out.println("\t____________________________________________________________");
-		System.out.println("\t niceee, i have marked this task done:");
-		System.out.println("\t [" + prefix +  "][" + this.getStatusIcon() + "]" + this.getDescription() + suffix);
-		System.out.println("\t____________________________________________________________");
+		System.out.println("____________________________________________________________");
+		System.out.println(" niceee, i have marked this task done:");
+		System.out.println(" [" + prefix +  "][" + this.getStatusIcon() + "]" + this.getDescription() + suffix);
+		System.out.println("____________________________________________________________");
 	}
 	public void printTaskUnmarked() {
-		System.out.println("\t____________________________________________________________");
-		System.out.println("\t ok, i have marked this task as not done yet:");
-		System.out.println("\t [" + prefix +  "][" + this.getStatusIcon() + "]" + this.getDescription() + suffix);
-		System.out.println("\t____________________________________________________________");
+		System.out.println("____________________________________________________________");
+		System.out.println(" ok, i have marked this task as not done yet:");
+		System.out.println(" [" + prefix +  "][" + this.getStatusIcon() + "]" + this.getDescription() + suffix);
+		System.out.println("____________________________________________________________");
 	}
 	public void printWrongCommand() {
-		System.out.println("\t____________________________________________________________");
-		System.out.println("\t fat fingers fella. command does not exist. try again...");
-		System.out.println("\t____________________________________________________________");
+		System.out.println("____________________________________________________________");
+		System.out.println(" fat fingers fella. command does not exist. try again...");
+		System.out.println("____________________________________________________________");
 	}
 	public void printAdded() {
-		System.out.println("\t____________________________________________________________");
-		System.out.println("\t added: " + this.description);
-		System.out.println("\t____________________________________________________________");
+		System.out.println("____________________________________________________________");
+		System.out.println(" added: " + this.description);
+		System.out.println("____________________________________________________________");
 	}
 
 }

@@ -20,24 +20,24 @@ public class JeffException extends Exception {
 	private void buildMessage(ErrorType type, String command) {
 		switch (type) {
 		case INCOMPLETE_COMMAND:
-			System.out.println("\t____________________________________________________________");
-			System.out.println("\t " + command + "? " + command + " what? please complete your command!");
-			System.out.println("\t____________________________________________________________");
+			System.out.println("____________________________________________________________");
+			System.out.println(" " + command + "? " + command + " what? please complete your command!");
+			System.out.println("____________________________________________________________");
 			break;
 		case UNKNOWN_COMMAND:
-			System.out.println("\t____________________________________________________________");
-			System.out.println("\t \"random nonsense go\" fella. invalid command. try again...");
-			System.out.println("\t____________________________________________________________");
+			System.out.println("____________________________________________________________");
+			System.out.println(" \"random nonsense go\" fella. invalid command. try again...");
+			System.out.println("____________________________________________________________");
 			break;
 		case IDX_OUTOFBOUNDS:
-			System.out.println("\t____________________________________________________________");
-			System.out.println("\t delusional fella. task does not exist. try again...");
-			System.out.println("\t____________________________________________________________");
+			System.out.println("____________________________________________________________");
+			System.out.println(" delusional fella. task does not exist. try again...");
+			System.out.println("____________________________________________________________");
 			break;
 		default:
-			System.out.println("\t____________________________________________________________");
-			System.out.println("\t error! try again...");
-			System.out.println("\t____________________________________________________________");
+			System.out.println("____________________________________________________________");
+			System.out.println(" error! try again...");
+			System.out.println("____________________________________________________________");
 			break;
 		}
 	}

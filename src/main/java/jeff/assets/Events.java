@@ -43,10 +43,10 @@ public class Events extends Task{
 
 	@Override
 	public void printAdded() {
-		System.out.println("\t____________________________________________________________");
-		System.out.println("\t new event! ok added:\n\t   " + taskString());
+		System.out.println("____________________________________________________________");
+		System.out.println(" new event! ok added:\n   " + taskString());
 		String singularOrPlural = getTotalTasks() == 1 ? " task" : " tasks";
-		System.out.println("\t now you have " + getTotalTasks() + singularOrPlural + " in your list!");
-		System.out.println("\t____________________________________________________________");
+		System.out.println(" now you have " + getTotalTasks() + singularOrPlural + " in your list!");
+		System.out.println("____________________________________________________________");
 	}
 }
