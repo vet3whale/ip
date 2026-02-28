@@ -12,8 +12,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class LoadStoreTasks{
-	protected static final String filePath = "data/tasks.txt";
+public class Storage {
+	protected static String filePath;
+
+	public Storage(String filePath) {
+		this.setFilePath(filePath);
+	}
+
+	public static void setFilePath(String filePath) {
+		Storage.filePath = filePath;
+	}
+
 	// Load & Store Tasks to File
 	public static void loadTasks(ArrayList<Task> tasks) {
 		File file = new File(filePath);
