@@ -16,7 +16,9 @@ public class JeffException extends Exception {
 		this.command = command;
 		buildMessage(type, command);
 	}
-
+	public void showError() {
+		buildMessage(this.type, this.command);
+	}
 	private void buildMessage(ErrorType type, String command) {
 		switch (type) {
 		case INCOMPLETE_COMMAND:

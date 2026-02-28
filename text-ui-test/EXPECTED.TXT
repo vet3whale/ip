@@ -1,5 +1,6 @@
+ no saved tasks file—starting fresh.
 ____________________________________________________________
-Hello, my name is jeff
+Hello, myname jeff
        __  _______  _______  _______
       |   ||      ||       ||       |
       |   ||    __||    ___||    ___|
@@ -9,7 +10,6 @@ Hello, my name is jeff
   |_______||_______|___|    |___|
 What can I do for you?
 ____________________________________________________________
- no saved tasks file—starting fresh.
 ____________________________________________________________
  "random nonsense go" fella. invalid command. try again...
 ____________________________________________________________

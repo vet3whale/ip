@@ -1,184 +1,39 @@
 package jeff;
 
-import jeff.assets.Deadlines;
-import jeff.assets.Events;
-import jeff.assets.Task;
-import jeff.assets.ToDos;
 import jeff.exceptions.JeffException;
 
-import java.util.Scanner;
-import java.util.ArrayList;
-
 public class Jeff {
+    private static Storage storage;
+    private static Ui ui;
+    private static TaskList tasks = new TaskList();
+    private static final String filePath = "data/tasks.txt";
 
-    private enum CommandType {
-        TODO, DEADLINE, EVENT, MARK, UNMARK, LIST, DELETE
-    }
     private static final String[] commandStrings = {
             "todo", "deadline", "event", "mark", "unmark", "list", "delete"
     };
 
-    public static void receiveInput() throws JeffException {
-        ArrayList<Task> tasks = new ArrayList<>();
-        LoadStoreTasks.loadTasks(tasks);
-        Scanner in = new Scanner(System.in);
-        String response = in.nextLine();
+    public Jeff(String filePath){
+        storage = new Storage(filePath);
+        ui = new Ui();
+    }
 
-        while (!response.equals("bye")) {
-            try {
-                String[] words = response.split(" ");
-                String command = words[0];
-                CommandType cmdType = parseCommand(command);
-                int idx;
-                switch (cmdType) {
-                case TODO:
-                    if (words.length < 2) {
-                        throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "todo");
-                    }
-                    tasks.add(new ToDos(response));
-                    tasks.get(tasks.size()-1).printAdded();
-                    break;
-                case DEADLINE:
-                    if (words.length < 2) {
-                        throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "deadline");
-                    }
-                    response = verifyDeadline(response);
-                    tasks.add(new Deadlines(response));
-                    tasks.get(tasks.size()-1).printAdded();
-                    break;
-                case EVENT:
-                    if (words.length < 2) {
-                        throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "event");
-                    }
-                    response = verifyEvent(response);
-                    tasks.add(new Events(response));
-                    tasks.get(tasks.size()-1).printAdded();
-                    break;
-                case DELETE:
-                    if (words.length < 2) {
-                        throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "delete");
-                    }
-                    idx = Integer.parseInt(words[1]);
-                    if (idx >= tasks.size()) {
-                        throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
-                    } else {
-                        Task taskToDelete = tasks.get(idx);
-                        tasks.remove(taskToDelete);
-                        printDeletedStatus(taskToDelete, tasks);
-                    }
-                    break;
-                case MARK:
-                case UNMARK:
-                    if (words.length > 1 && isDigit(words[1])) {
-                        idx = Integer.parseInt(words[1]);
-                        if (idx >= tasks.size()) {
-                            throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
-                        } else {
-                            tasks.get(idx).setCompletionStatus(command);
-                        }
-                    } else {
-                        throw new JeffException(JeffException.ErrorType.IDX_OUTOFBOUNDS, "");
-                    }
-                    break;
-                case LIST:
-                    printList(tasks);
-                    break;
-                }
-            } catch (JeffException e) {
-            }
-            LoadStoreTasks.storeTasks(tasks);
-            response = in.nextLine();
+    public void run() {
+        storage.loadTasks(tasks);
+        Parser parser = new Parser();
+
+        String chatbotName = "jeff";
+        ui.helloGreeting(chatbotName);
+
+        boolean isExit = false;
+        while (!isExit) {
+            String fullCommand = ui.readCommand();
+            isExit = parser.readResponse(fullCommand, tasks);
         }
     }
 
     public static void main(String[] args) throws JeffException {
-        String chatbotName = "jeff";
-
-        helloGreeting(chatbotName);
-        receiveInput();
-        byeGreeting();
+        new Jeff(filePath).run();
+        ui.byeGreeting();
     }
 
-    public static boolean isDigit(String word) {
-        if (word == null) {
-            return false;
-        }
-        try {
-            Integer.parseInt(word);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-    public static String verifyDeadline(String response) {
-        if (!response.contains("/by")) {
-            response += " /by tbd";
-        } else if (response.indexOf("/by")+2 == response.length()-1){
-            response += " tbd";
-        }
-        return response;
-    }
-    public static String verifyEvent(String response) {
-        if (!response.contains("/from") && !response.contains("/to")){
-            response += " /from tbd /to tbd";
-        } else if (!response.contains("/to")) {
-            response += " /to tbd";
-        } else if (!response.contains("/from")) {
-            String[] words = response.split("/to");
-            response = words[0] + "/from tbd /to" + words[1];
-        } else if (response.indexOf("/to")+2 == response.length()-1){
-            response += " tbd";
-        }
-        return response;
-    }
-
-    public static void helloGreeting(String chatbotName) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello, my name is " + chatbotName);
-        System.out.println("       __  _______  _______  _______");
-        System.out.println("      |   ||      ||       ||       |");
-        System.out.println("      |   ||    __||    ___||    ___|");
-        System.out.println("      |   ||   |__ |   |___ |   |___");
-        System.out.println("   ___|   ||    __||    ___||    ___|");
-        System.out.println("  |       ||   |___|   |    |   |");
-        System.out.println("  |_______||_______|___|    |___|");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
-    }
-    public static void byeGreeting() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
-    }
-    public static void printDeletedStatus(Task task, ArrayList<Task> tasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" noted, following task has been deleted:");
-        System.out.println("  " + task.taskString());
-        System.out.println(" now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
-    }
-    private static CommandType parseCommand(String input) throws JeffException {
-        if (input == null || input.isBlank()) {
-            throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "command");
-        }
-
-        String[] words = input.trim().split(" ");
-        String cmd = words[0].toLowerCase();
-        int count = 0;
-        for (String commandString : commandStrings) {
-            if (commandString.equals(cmd)) {
-                return CommandType.values()[count];
-            }
-            count++;
-        }
-        throw new JeffException(JeffException.ErrorType.UNKNOWN_COMMAND, cmd);
-    }
-
-    public static void printList(ArrayList<Task> tasks){
-        System.out.println("____________________________________________________________");
-        for (Task task : tasks) {
-            System.out.println(" " + tasks.indexOf(task) + ". " + task.taskString());
-        }
-        System.out.println("____________________________________________________________");
-    }
 }
