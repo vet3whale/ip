@@ -12,10 +12,10 @@ import java.util.ArrayList;
 
 public class Parser {
 	private static final String[] commandStrings = {
-			"todo", "deadline", "event", "mark", "unmark", "list", "delete", "bye"
+			"todo", "deadline", "event", "mark", "unmark", "list", "delete", "bye", "find"
 	};
 	enum CommandType {
-		TODO, DEADLINE, EVENT, MARK, UNMARK, LIST, DELETE, BYE
+		TODO, DEADLINE, EVENT, MARK, UNMARK, LIST, DELETE, BYE, FIND
 	}
 
 	private static Ui ui;
@@ -91,6 +91,12 @@ public class Parser {
 				throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "delete");
 			}
 			return new DeleteCommand(Integer.parseInt(words[1]));
+		case FIND:
+			if (words.length < 2) {
+				throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "find");
+			}
+			int firstSpace = response.indexOf(" ");
+			return new FindCommand(response.substring(firstSpace+1).trim());
 		case MARK:
 		case UNMARK:
 			if (words.length < 2 || !isDigit(words[1])) {

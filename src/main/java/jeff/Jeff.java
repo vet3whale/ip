@@ -35,6 +35,7 @@ public class Jeff {
                 String fullCommand = ui.readCommand();
                 Command c = parser.readResponse(fullCommand, tasks);
                 c.execute(tasks, ui, storage);
+                storage.storeTasks(tasks);
                 isExit = c.isExit();
             } catch (JeffException e) {
 
