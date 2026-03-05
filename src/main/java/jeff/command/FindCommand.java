@@ -29,7 +29,6 @@ public class FindCommand extends Command{
 	 */
 	@Override
 	public void execute(TaskList tasks, Ui ui, Storage storage) {
-
 		ui.showLine();
 		System.out.println("here are the matching tasks in your list:");
 		int count = 0;
@@ -40,7 +39,7 @@ public class FindCommand extends Command{
 				System.out.println(" " + task.taskString());
 			}
 		}
-		if (count == 0) {
+		if (count == 0) { // if we found nothing
 			System.out.println(" sike, we found nothing");
 		}
 		ui.showLine();
