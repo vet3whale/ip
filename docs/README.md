@@ -30,8 +30,7 @@ If you think Jeff is a regular name, you lack **_ball knowledge_**, mynameJeff.�
 3. Copy the file to the folder that you want to use as the home folder for your Task Manager.
 4. Open Terminal (Mac) or Windows PowerShell (Windows), `cd` into the folder you put the jar file in, and use the `java -jar Jeff.jar` command to run the application.
 5. If you are starting fresh, you should see the following greeting:
-~~~text
- no saved tasks file—starting fresh.
+<pre><code> no saved tasks file—starting fresh.
 ____________________________________________________________
 Hello, myname jeff
        __  _______  _______  _______
@@ -42,8 +41,7 @@ Hello, myname jeff
   |       ||   |___|   |    |   |
   |_______||_______|___|    |___|
 What can I do for you?
-____________________________________________________________
-~~~
+____________________________________________________________</code></pre>
 6. Type a command in the command line and press Enter to execute it.
    (e.g., typing `help` and pressing Enter will open the help menu.)
 7. Refer to the [Features](#features) below for details of each command.
