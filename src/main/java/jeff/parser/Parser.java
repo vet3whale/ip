@@ -10,6 +10,9 @@ import jeff.exceptions.JeffException;
 
 import java.util.ArrayList;
 
+/**
+ * Parses user input into executable commands.
+ */
 public class Parser {
 	private static final String[] commandStrings = {
 			"todo", "deadline", "event", "mark", "unmark", "list", "delete", "bye", "find"
@@ -20,11 +23,19 @@ public class Parser {
 
 	private static Ui ui;
 
+	/**
+	 * Constructs a Parser and initializes the user interface.
+	 */
 	public Parser() {
 		ui = new Ui();
 	}
 
-	// this parses commands that user inputs
+	/**
+	 * Parses the initial command word from the user input to determine the command type.
+	 * @param input The raw input string from the user.
+	 * @return The CommandType corresponding to the input.
+	 * @throws JeffException If the command is empty or unrecognized.
+	 */
 	private static CommandType parseCommand(String input) throws JeffException {
 		if (input == null || input.isBlank()) {
 			throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, "command");
@@ -42,6 +53,12 @@ public class Parser {
 		throw new JeffException(JeffException.ErrorType.UNKNOWN_COMMAND, cmd);
 	}
 
+	/**
+	 * Verifies and formats the deadline command input to ensure it contains a valid /by clause.
+	 *
+	 * @param response The user's input string for a deadline.
+	 * @return The formatted deadline string.
+	 */
 	public static String verifyDeadline(String response) {
 		if (!response.contains("/by")) {
 			response += " /by tbd";
@@ -51,6 +68,12 @@ public class Parser {
 		return response;
 	}
 
+	/**
+	 * Verifies and formats the event command input to ensure it contains valid /from and /to clauses.
+	 *
+	 * @param response The user's input string for an event.
+	 * @return The formatted event string.
+	 */
 	public static String verifyEvent(String response) {
 		if (!response.contains("/from") && !response.contains("/to")){
 			response += " /from tbd /to tbd";
@@ -64,6 +87,15 @@ public class Parser {
 		}
 		return response;
 	}
+
+	/**
+	 * Reads the full user input and translates it into the corresponding Command object.
+	 *
+	 * @param response The full command string entered by the user.
+	 * @param tasks    The current list of tasks.
+	 * @return The Command corresponding to the user's input.
+	 * @throws JeffException If the command has incorrect formatting or incomplete arguments.
+	 */
 	public static Command readResponse(String response, ArrayList<Task> tasks) throws JeffException {
 		String[] words = response.split(" ");
 		String command = words[0];
@@ -112,6 +144,12 @@ public class Parser {
 		}
 	}
 
+	/**
+	 * Checks if a given string represents a valid integer.
+	 *
+	 * @param word The string to check.
+	 * @return True if the string is a valid integer, false otherwise.
+	 */
 	public static boolean isDigit(String word) {
 		if (word == null) {
 			return false;

@@ -1,7 +1,13 @@
 package jeff.exceptions;
 
+/**
+ * Represents a custom exception class for the Jeff chatbot.
+ * Handles specific error types that occur during the execution of commands.
+ */
 public class JeffException extends Exception {
-
+	/**
+	 * Defines the types of errors that can occur in the application.
+	 */
 	public enum ErrorType {
 		INCOMPLETE_COMMAND,
 		UNKNOWN_COMMAND,
@@ -11,15 +17,26 @@ public class JeffException extends Exception {
 	private ErrorType type;
 	private String command;
 
+	/**
+	 * Constructs a JeffException with the specified error type and command string.
+	 * Automatically triggers the display of the appropriate error message to the user interface.
+	 *
+	 * @param type    The specific type of error that occurred.
+	 * @param command The command string that caused the error.
+	 */
 	public JeffException(ErrorType type, String command) {
 		this.type = type;
 		this.command = command;
-		buildMessage(type, command);
+		showError(type, command);
 	}
-	public void showError() {
-		buildMessage(this.type, this.command);
-	}
-	private void buildMessage(ErrorType type, String command) {
+
+	/**
+	 * Displays the appropriate error message to the user based on the error type.
+	 *
+	 * @param type    The specific type of error that occurred.
+	 * @param command The command string associated with the error.
+	 */
+	private void showError(ErrorType type, String command) {
 		switch (type) {
 		case INCOMPLETE_COMMAND:
 			System.out.println("____________________________________________________________");
@@ -44,10 +61,20 @@ public class JeffException extends Exception {
 		}
 	}
 
+	/**
+	 * Retrieves the type of error associated with this exception.
+	 *
+	 * @return The error type.
+	 */
 	public ErrorType getType() {
 		return type;
 	}
 
+	/**
+	 * Retrieves the command string that triggered this exception.
+	 *
+	 * @return The command string.
+	 */
 	public String getCommand() {
 		return command;
 	}

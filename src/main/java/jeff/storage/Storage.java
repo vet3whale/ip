@@ -12,18 +12,36 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and storing of tasks to a persistent text file.
+ */
 public class Storage {
 	protected static String filePath;
 
+	/**
+	 * Constructs a Storage object with the specified file path.
+	 *
+	 * @param filePath The path of the file used for saving tasks.
+	 */
 	public Storage(String filePath) {
 		this.setFilePath(filePath);
 	}
 
+	/**
+	 * Sets the file path for storage.
+	 *
+	 * @param filePath The new file path to set.
+	 */
 	public static void setFilePath(String filePath) {
 		Storage.filePath = filePath;
 	}
 
-	// Load & Store Tasks to File
+	/**
+	 * Loads tasks from the storage file into the provided task list.
+	 * Creates the necessary directories and file if they do not exist.
+	 *
+	 * @param tasks The list where loaded tasks will be stored.
+	 */
 	public static void loadTasks(ArrayList<Task> tasks) {
 		File file = new File(filePath);
 		if (!file.getParentFile().exists()) {
@@ -40,6 +58,12 @@ public class Storage {
 		}
 	}
 
+	/**
+	 * Saves the current list of tasks to the storage file.
+	 *
+	 * @param tasks The list of tasks to be saved.
+	 * @throws RuntimeException If an error occurs while writing to the file.
+	 */
 	public static void storeTasks(ArrayList<Task> tasks) {
 		File file = new File(filePath);
 		if (!file.getParentFile().exists()) {
@@ -54,6 +78,12 @@ public class Storage {
 		}
 	}
 
+	/**
+	 * Parses a string representation of a task from the storage file and adds it to the task list.
+	 *
+	 * @param taskString The formatted string representing a task.
+	 * @param tasks      The list where the task will be added.
+	 */
 	public static void addTask(String taskString, ArrayList<Task> tasks) {
 		// parts[0] = taskType char, parts[1] = done flag, parts[2] = desc,
 		// parts[3] = by (Deadline) OR from (Event), parts[4] = to (Event)
