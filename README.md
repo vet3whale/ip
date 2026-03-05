@@ -1,4 +1,4 @@
-# Jeff the Chatbot: User Guide
+# Jeff the Chatbot 🦈: User Guide
 ## Overview
 Welcome to my task tracking chatbot, Jeff, that remembers your events, deadlines and todo. 
 > **BEWARE:** Jeff ain't your fruity chatbot that talks to you nice when you make mistakes.
