@@ -65,7 +65,6 @@ public class Jeff {
      */
     public static void main(String[] args) {
         new Jeff(filePath).run();
-        ui.byeGreeting();
     }
 
 }

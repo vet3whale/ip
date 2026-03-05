@@ -15,10 +15,10 @@ import java.util.ArrayList;
  */
 public class Parser {
 	private static final String[] commandStrings = {
-			"todo", "deadline", "event", "mark", "unmark", "list", "delete", "bye", "find"
+			"todo", "deadline", "event", "mark", "unmark", "list", "delete", "bye", "find", "help"
 	};
 	enum CommandType {
-		TODO, DEADLINE, EVENT, MARK, UNMARK, LIST, DELETE, BYE, FIND
+		TODO, DEADLINE, EVENT, MARK, UNMARK, LIST, DELETE, BYE, FIND, HELP
 	}
 
 	private static Ui ui;
@@ -135,6 +135,8 @@ public class Parser {
 				throw new JeffException(JeffException.ErrorType.INCOMPLETE_COMMAND, command);
 			}
 			return new MarkUnmarkCommand(Integer.parseInt(words[1]), command.equals("mark"));
+		case HELP:
+			return new HelpCommand();
 		case LIST:
 			return new ListCommand();
 		case BYE:

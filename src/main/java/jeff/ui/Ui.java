@@ -59,7 +59,7 @@ public class Ui {
 	 */
 	public static void byeGreeting() {
 		showLine();
-		System.out.println("Bye. Hope to see you again soon!");
+		System.out.println("bye bye. safe man.");
 		showLine();
 	}
 
