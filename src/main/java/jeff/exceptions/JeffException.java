@@ -5,6 +5,7 @@ package jeff.exceptions;
  * Handles specific error types that occur during the execution of commands.
  */
 public class JeffException extends Exception {
+	
 	/**
 	 * Defines the types of errors that can occur in the application.
 	 */
