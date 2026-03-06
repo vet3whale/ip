@@ -19,10 +19,6 @@ public class Jeff {
     private static TaskList tasks = new TaskList();
     private static final String filePath = "data/tasks.txt";
 
-    private static final String[] commandStrings = {
-            "todo", "deadline", "event", "mark", "unmark", "list", "delete"
-    };
-
     /**
      * Initializes the Jeff chatbot with the specified file path for storage.
      *

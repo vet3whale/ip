@@ -100,7 +100,6 @@ public class Parser {
 		String[] words = response.split(" ");
 		String command = words[0];
 		CommandType cmdType = parseCommand(command);
-		int idx;
 
 		switch (cmdType) {
 		case TODO:
